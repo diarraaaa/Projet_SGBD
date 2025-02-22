@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='InfoSalle.css') }}">
+    </head>
+    <body>
+        <header> 
+            <a href="/timeline">Les devoirs</a>
+            <a href="/Profil"> Mon compte </a>
+        </header>
+        {% for dev in infodevoirs %}
+        <div class="infodevoirs"> 
+            <h2>{{ dev[0] }}</h2>
+            <p>Type:{{ dev[2] }} </p>
+            <p>:{{ dev[1] }} </p>
+            <p>Classe:{{ dev[3] }}</p>
+            <p>Professeur:{{ dev[5] }}</p>
+            <p>Date limite:{{ dev[6] }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Timeline.css') }}">
+    <title>Timeline</title>
+</head>
+<body> 
+    <header> 
+        <a href="/Profil"> Mon compte </a>
+     {% if sess_username %}
+          <p style="color: rgb(0, 0, 0);font-weight: bolder;">{{ sess_username }}</p>
+     {% endif %} 
+    </header>
+    <a href="/ajoutdevoir">Ajouter un devoir</a>
+
+
+</body>
+</html>
