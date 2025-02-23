@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Choisissez votre rôle</title>
-    <link rel="stylesheet" href="accueil.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='accueil.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -16,12 +16,12 @@
 
         <div class="role-selection">
             <div class="role-card" onclick="redirectTo('etudiant')">
-                <img src="images/etudiant.jpg" alt="Étudiant">
+                <img src="{{ url_for('static/images', filename='Connexion.css') }}" alt="Étudiant">
                 <h2>Étudiant</h2>
             </div>
 
             <div class="role-card" onclick="redirectTo('enseignant')">
-                <img src="images/enseignant.jpg" alt="Enseignant">
+                <img src="{{ url_for('static/images', filename='Connexion.css') }}" alt="Enseignant">
                 <h2>Enseignant</h2>
             </div>
         </div>
