@@ -20,11 +20,10 @@ def nettoyer_nom_fichier(nom_fichier):
     # Remplacer les caractères spéciaux par des tirets
     nom_fichier_nettoye = re.sub(r'[^\w.-]', '-', nom_fichier)
     return nom_fichier_nettoye
-
-# Function to register a student
+    
 def add_eleve():
     try:
-        # Retrieve information from the form
+       
         nom = request.form['nom']
         prenom = request.form['prenom']
         username = request.form['username']
@@ -33,25 +32,24 @@ def add_eleve():
         classe = request.form['classe']
 
 
-        # Create a connection to the database
+    
         conn = connectdatabase()
         if conn is None:
             return jsonify({'error': 'Impossible de se connecter à la base de données'})
 
-        # Create a cursor to execute SQL queries
         cursor = conn.cursor()
 
-        # Check if the email has already been used
+        
         verification_email = "SELECT * FROM eleve WHERE mail=%s"
         cursor.execute(verification_email, (email,))
         email_present = cursor.fetchone()
 
-        # Check if the username is already taken
+        
         verification_username = "SELECT * FROM eleve WHERE username=%s"
         cursor.execute(verification_username, (username,))
         username_present = cursor.fetchone()
 
-        # Display warning messages
+    
         if email_present:
             error_message = 'Email déjà utilisé'
             return render_template('InscriptionEleve.html', error_message=error_message)
@@ -60,7 +58,6 @@ def add_eleve():
             error_message = "Nom d'utilisateur non disponible"
             return render_template('InscriptionEleve.html', error_message=error_message)
 
-        # If no issues, add the student to the database
         requete = "INSERT INTO eleve(nom, prenom, username, mail, password,classe) VALUES (%s, %s, %s, %s, %s,%s)"
         values = (nom, prenom, username, email, password,classe)
         cursor.execute(requete, values)
@@ -68,11 +65,11 @@ def add_eleve():
         cursor.close()
         conn.close()
 
-        # Display a success message
+     
         success_message = 'Inscription réussie'
         return render_template('InscriptionEleve.html', success_message=success_message)
 
-    # Handle errors
+   
     except pymysql.MySQLError as error:
         print(f"Database error: {error}")
         return jsonify({'error': str(error)})
@@ -81,32 +78,29 @@ def add_eleve():
 
 def add_prof():
     try:
-        # Retrieve information from the form
+       
         nom = request.form['nom']
         prenom = request.form['prenom']
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
 
-        # Create a connection to the database
         conn = connectdatabase()
         if conn is None:
             return jsonify({'error': 'Impossible de se connecter à la base de données'})
 
-        # Create a cursor to execute SQL queries
         cursor = conn.cursor()
 
-        # Check if the email has already been used
+       
         verification_email = "SELECT * FROM prof WHERE mail=%s"
         cursor.execute(verification_email, (email,))
         email_present = cursor.fetchone()
 
-        # Check if the username is already taken
         verification_username = "SELECT * FROM prof WHERE username=%s"
         cursor.execute(verification_username, (username,))
         username_present = cursor.fetchone()
 
-        # Display warning messages
+   
         if email_present:
             error_message = 'Email déjà utilisé'
             return render_template('InscriptionP.html', error_message=error_message)
@@ -115,7 +109,7 @@ def add_prof():
             error_message = "Nom d'utilisateur non disponible"
             return render_template('InscriptionP.html', error_message=error_message)
 
-        # If no issues, add the student to the database
+        
         requete = "INSERT INTO prof(nom, prenom, username, mail, password) VALUES (%s, %s, %s, %s, %s)"
         values = (nom, prenom, username, email, password)
         cursor.execute(requete, values)
@@ -123,11 +117,9 @@ def add_prof():
         cursor.close()
         conn.close()
 
-        # Display a success message
         success_message = 'Inscription réussie'
         return render_template('InscriptionP.html', success_message=success_message)
 
-    # Handle errors
     except pymysql.MySQLError as error:
         print(f"Database error: {error}")
         return jsonify({'error': str(error)})
